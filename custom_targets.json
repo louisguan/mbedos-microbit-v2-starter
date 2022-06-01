@@ -1,0 +1,98 @@
+{
+    "MCU_NRF52833": {
+        "inherits": ["MCU_NRF52840"],
+        "device_name": "nRF52840_xxAA",
+        "release_versions": ["5"],
+        "extra_labels_add": [
+            "MCU_NRF52833"
+        ],
+        "static_memory_defines": false,
+        "device_has_add": [
+            "I2CSLAVE"
+        ],
+        "macros_add": [
+            "NRF52833_XXAA",
+            "TARGET_NRF52833",
+            "TARGET_MCU_NRF52833",
+            "NRFX_TWIS_ENABLED=1",
+            "NRFX_RNG_ENABLED=1",
+            "RNG_ENABLED=1",
+            "NRF_QUEUE_ENABLED=1",
+            "NRF52_PAN_20"
+        ],
+        "features_remove": [
+            "CRYPTOCELL310"
+        ],
+        "device_has_remove": [
+            "QSPI",
+            "I2C_ASYNCH"
+        ],
+        "components_remove": [
+            "QSPIF"
+        ],
+        "macros_remove": [
+            "MBEDTLS_CONFIG_HW_SUPPORT"
+        ]
+    },
+    "NRF52833_DK": {
+        "inherits": ["MCU_NRF52833"],
+        "supported_form_factors": ["ARDUINO"],
+        "detect_code": ["1103"],
+        "macros_add": [
+            "CONFIG_GPIO_AS_PINRESET"
+        ],
+        "device_has_remove": ["ITM"]
+    },
+    "NRF52_MICROBIT_V2": {
+        "inherits": ["MCU_NRF52833"],
+        "macros_add": [
+            "WSF_MAX_HANDLERS=10",
+            "CONFIG_NFCT_PINS_AS_GPIOS",
+            "MICROBIT_TARGET"
+        ],
+        "device_has_remove": ["ITM"],
+        "overrides": {
+            "lf_clock_src": "NRF_LF_SRC_RC"
+        }
+    },
+    "NRF52_MICROBIT_V1_43": {
+        "inherits": ["NRF52_MICROBIT_V2"]
+    },
+    "NRF52_MICROBIT_V1_44": {
+        "inherits": ["NRF52_MICROBIT_V2"]
+    },
+    "NRF52_MICROBIT_V1_45": {
+        "inherits": ["NRF52_MICROBIT_V2"]
+    },
+    "NRF52_MICROBIT_V1_46": {
+        "inherits": ["NRF52_MICROBIT_V2"]
+    },
+    "NRF52_MICROBIT_V1_47": {
+        "inherits": ["NRF52_MICROBIT_V2"]
+    },
+    "NRF52_MICROBIT_V2_IF_820": {
+        "inherits": ["NRF52_MICROBIT_V2"],
+        "device_has_remove": [
+            "ANALOGIN",
+            "PWMOUT"
+        ],
+        "extra_labels_remove": [
+            "CORDIO",
+            "CORDIO_LL",
+            "NORDIC_CORDIO"
+        ],
+        "macros_add": [
+            "MICROBIT_IF"
+        ],
+        "macros_remove": [
+            "MICROBIT_TARGET"
+        ],
+        "static_memory_defines": true,
+        "mbed_app_start": "0x8000",
+        "mbed_app_size": "0x17000",
+        "mbed_ram_size": "0x8000"
+    },
+    "NRF52_MICROBIT_V2_IF_833": {
+        "inherits": ["NRF52_MICROBIT_V2_IF_820"]
+    }
+}

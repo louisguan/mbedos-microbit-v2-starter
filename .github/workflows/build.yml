@@ -1,0 +1,35 @@
+name: Build Mbed OS project
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        # Testing an old GCC version, a version officially supported by Mbed, and latest
+        gcc: ['7-2017-q4', '9-2020-q2', 'latest']
+    name: Build - gcc ${{ matrix.gcc }}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install GNU Arm Embedded Toolchain (arm-none-eabi-gcc)
+        uses: carlosperate/arm-none-eabi-gcc-action@v1
+        with:
+          release: ${{ matrix.gcc }}
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.7'
+      - run: pip install mbed-cli
+      - run: mbed config root .
+      - run: mbed deploy
+      - run: mbed compile -m nrf52_microbit_v2 -t GCC_ARM
+      - name: Upload hex file
+        uses: actions/upload-artifact@v1
+        with:
+          name: mbedos-microbit-v2-starter.hex
+          path: ./BUILD/NRF52_MICROBIT_V2/GCC_ARM/mbedos-microbit-v2-starter.hex
